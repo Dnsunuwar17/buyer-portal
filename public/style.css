@@ -1,4 +1,8 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: system-ui, sans-serif;
@@ -13,7 +17,7 @@ body {
   background: white;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
 }
 
 .dashboard-container {
@@ -22,10 +26,18 @@ body {
   padding: 0 1rem;
 }
 
-h1 { font-size: 1.6rem; margin-bottom: 1.5rem; }
-h2 { font-size: 1.2rem; margin-bottom: 1rem; color: #444; }
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+}
 
-label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; margin-top: 1rem; }
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  margin-top: 1rem;
+}
 
 input {
   width: 100%;
@@ -35,7 +47,11 @@ input {
   font-size: 1rem;
 }
 
-input:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.15); }
+input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
 
 button {
   width: 100%;
@@ -50,13 +66,22 @@ button {
   font-weight: 600;
 }
 
-button:hover { background: #4338ca; }
+button:hover {
+  background: #4338ca;
+}
 
-.link-row { text-align: center; margin-top: 1rem; font-size: 0.9rem; }
-.link-row a { color: #4f46e5; text-decoration: none; }
+.link-row {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
 
-.error-msg { color: #dc2626; font-size: 0.85rem; margin-top: 0.75rem; min-height: 1.2em; }
-.success-msg { color: #16a34a; font-size: 0.85rem; margin-top: 0.75rem; }
+.error-msg {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+  min-height: 1.2em;
+}
 
 /* Dashboard */
 .top-bar {
@@ -68,12 +93,36 @@ button:hover { background: #4338ca; }
   border-bottom: 1px solid #eee;
 }
 
-.user-info { font-size: 0.9rem; color: #555; }
-.user-info strong { color: #1a1a2e; }
-.badge { background: #ede9fe; color: #4f46e5; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.user-info {
+  font-size: 0.9rem;
+  color: #555;
+}
 
-#logout-btn { width: auto; padding: 0.4rem 1rem; margin: 0; font-size: 0.85rem; background: #f1f5f9; color: #333; }
-#logout-btn:hover { background: #e2e8f0; }
+.user-info strong {
+  color: #1a1a2e;
+}
+
+.badge {
+  background: #ede9fe;
+  color: #4f46e5;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+#logout-btn {
+  width: auto;
+  padding: 0.4rem 1rem;
+  margin: 0;
+  font-size: 0.85rem;
+  background: #f1f5f9;
+  color: #333;
+}
+
+#logout-btn:hover {
+  background: #e2e8f0;
+}
 
 .properties-grid {
   display: grid;
@@ -90,11 +139,26 @@ button:hover { background: #4338ca; }
   transition: box-shadow 0.2s;
 }
 
-.property-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.property-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
 
-.property-card h3 { font-size: 1rem; margin-bottom: 4px; }
-.property-card .address { font-size: 0.8rem; color: #888; margin-bottom: 0.75rem; }
-.property-card .price { font-weight: 700; color: #4f46e5; margin-bottom: 1rem; }
+.property-card h3 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.property-card .address {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0.75rem;
+}
+
+.property-card .price {
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 1rem;
+}
 
 .fav-btn {
   width: 100%;
@@ -107,8 +171,23 @@ button:hover { background: #4338ca; }
   border: none;
 }
 
-.fav-btn.add    { background: #ede9fe; color: #4f46e5; }
-.fav-btn.remove { background: #fce7f3; color: #be185d; }
-.fav-btn:hover  { opacity: 0.85; }
+.fav-btn.add {
+  background: #ede9fe;
+  color: #4f46e5;
+}
 
-.section-title { font-size: 1rem; font-weight: 700; margin: 2rem 0 0.75rem; color: #333; }
+.fav-btn.remove {
+  background: #fce7f3;
+  color: #be185d;
+}
+
+.fav-btn:hover {
+  opacity: 0.85;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 2rem 0 0.75rem;
+  color: #333;
+}

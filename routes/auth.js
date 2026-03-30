@@ -3,15 +3,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const db = require('../db/database');
-const JWT_SECRET = process.env.JWT_SECRET;
 
-const router = express.Router();
+const router = express.Router(); //Keeps auth routes organized and modular
 
-// ─── REGISTER ────────────────────────────────────────────────────────────────
+// Registration and login routes with validation and error handling
 router.post('/register',
-  body('name').trim().notEmpty().withMessage('Name is required'),
+  body('name').trim().notEmpty().withMessage('Fullname is required'),
   body('email').isEmail().withMessage('Please enter a valid email'),
-  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
+  body('password').trim().isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+  .matches(/\S/).withMessage('Password cannot be blank or spaces only'),
 
   async (req, res) => {
     const errors = validationResult(req);
@@ -34,7 +34,7 @@ router.post('/register',
 
     const token = jwt.sign(
       { id: result.lastInsertRowid, email, name, role: 'buyer' },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 
@@ -42,7 +42,6 @@ router.post('/register',
   }
 );
 
-// ─── LOGIN ────────────────────────────────────────────────────────────────────
 router.post('/login',
   body('email').isEmail().withMessage('Please enter a valid email'),
   body('password').notEmpty().withMessage('Password is required'),
@@ -67,7 +66,7 @@ router.post('/login',
 
     const token = jwt.sign(
       { id: user.id, email: user.email, name: user.name, role: user.role },
-      JWT_SECRET,
+      process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 

@@ -3,10 +3,9 @@ const db = require('../db/database');
 const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
-
 router.use(requireAuth);
 
-// GET all properties + whether each is favourited by this user
+// Fetches all properties with an is_favourited flag for the current user
 router.get('/properties', (req, res) => {
   const userId = req.user.id;
 
@@ -23,7 +22,7 @@ router.get('/properties', (req, res) => {
   res.json(properties);
 });
 
-// GET only this user's favourites
+// Fetches user's favourites only
 router.get('/', (req, res) => {
   const userId = req.user.id;
 
@@ -74,6 +73,9 @@ router.delete('/:propertyId', (req, res) => {
 
     res.json({ message: 'Removed from favourites.' });
   } catch (err) {
+    if (err.message && err.message.includes('UNIQUE constraint failed')) {
+      return res.status(409).json({ error: 'Already in your favourites.' });
+    }
     res.status(500).json({ error: 'Could not remove favourite.' });
   }
 });
