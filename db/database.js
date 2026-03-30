@@ -3,6 +3,7 @@ const path = require('path');
 
 const db = new Database(path.join(__dirname, '..', 'portal.db'));
 
+// DB config Setting
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
@@ -35,10 +36,10 @@ db.exec(`
 
 const count = db.prepare('SELECT COUNT(*) as c FROM properties').get();
 if (count.c === 0) {
-  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Modern Apartment', '12 Oak Street, Cape Town', 1850000);
-  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Family Home', '7 Elm Avenue, Johannesburg', 3200000);
-  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Studio Flat', '33 Beach Road, Durban', 950000);
-  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Luxury Villa', '5 Vineyard Lane, Stellenbosch', 6500000);
+  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Modern Apartment', '12 Dhara Street, Kathmandu', 1850000);
+  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Family Home', 'Thali High Street, Bhaktapur', 3200000);
+  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Studio Flat', 'Patan Galli, Lalitpur', 950000);
+  db.prepare('INSERT INTO properties (title, address, price) VALUES (?, ?, ?)').run('Luxury Villa', 'Fewa View Road, Pokhara', 6500000);
 }
 
 module.exports = db;
