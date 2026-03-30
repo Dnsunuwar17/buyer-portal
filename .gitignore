@@ -1,3 +1,5 @@
 .env
 node_modules/
 portal.db
+portal.db-wal
+portal.db-shm
