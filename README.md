@@ -44,8 +44,8 @@ browse available properties, and manage their personal favourites list
 1. Install dependencies:
    npm install
 
-2. Create .env file:
-   JWT_SECRET="put_secret_here"
+2. Create .env file and paste this inside it:
+   JWT_SECRET="put_secret_here" (You can use any long random string value for JWT_SECRET)
 
 3. Start the server:
    npm start
