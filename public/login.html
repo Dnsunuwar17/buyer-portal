@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Login — Buyer Portal</title>
+  <title>Login Buyer Portal</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
 
-    <!-- Fix 5: heading updates per tab via JS -->
     <h1 id="page-heading">Welcome back</h1>
 
     <div id="tab-row" style="display:flex; gap:8px; margin-bottom:1.5rem;">
-      <!-- Fix 1: no inline onclick -->
-      <button id="tab-login"    style="width:auto;padding:0.4rem 1.2rem;margin:0;background:#4f46e5;color:white;">Login</button>
-      <button id="tab-register" style="width:auto;padding:0.4rem 1.2rem;margin:0;background:#f1f5f9;color:#333;">Register</button>
+      <button id="tab-login" style="width:auto;margin:0;background:#4f46e5;color:white;">Login</button>
+      <button id="tab-register" style="width:auto;margin:0;background:#f1f5f9;color:#333;">Register</button>
     </div>
 
     <!-- Login Form -->
@@ -27,7 +27,7 @@
       <p class="error-msg" id="login-error"></p>
     </form>
 
-    <!-- Register Form (hidden by default) -->
+    <!-- Register Form -->
     <form id="register-form" style="display:none;">
       <label>Full name</label>
       <input type="text" id="reg-name" placeholder="Jane Smith" required minlength="2">
@@ -40,127 +40,7 @@
     </form>
 
   </div>
-
-  <script>
-    if (localStorage.getItem('token')) window.location.href = '/dashboard.html';
-
-    // ── TAB SWITCHING ──────────────────────────────────────────────────────────
-    // Fix 3 and Fix 5 also handled here
-    function showTab(tab) {
-      const isLogin = tab === 'login';
-
-      // Toggle form visibility
-      document.getElementById('login-form').style.display    = isLogin ? 'block' : 'none';
-      document.getElementById('register-form').style.display = isLogin ? 'none'  : 'block';
-
-      // Toggle tab button styles
-      document.getElementById('tab-login').style.background    = isLogin ? '#4f46e5' : '#f1f5f9';
-      document.getElementById('tab-login').style.color         = isLogin ? 'white'   : '#333';
-      document.getElementById('tab-register').style.background = isLogin ? '#f1f5f9' : '#4f46e5';
-      document.getElementById('tab-register').style.color      = isLogin ? '#333'    : 'white';
-
-      // Fix 5: update heading per tab
-      document.getElementById('page-heading').textContent = isLogin
-        ? 'Welcome back'
-        : 'Create an account';
-
-      // Fix 3: clear all form values and errors on tab switch
-      document.getElementById('login-email').value     = '';
-      document.getElementById('login-password').value  = '';
-      document.getElementById('reg-name').value        = '';
-      document.getElementById('reg-email').value       = '';
-      document.getElementById('reg-password').value    = '';
-      document.getElementById('login-error').textContent    = '';
-      document.getElementById('register-error').textContent = '';
-    }
-
-    // Fix 1: addEventListener instead of inline onclick
-    document.getElementById('tab-login').addEventListener('click', () => showTab('login'));
-    document.getElementById('tab-register').addEventListener('click', () => showTab('register'));
-
-    // ── LOGIN ──────────────────────────────────────────────────────────────────
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const errorEl = document.getElementById('login-error');
-      const submitBtn = document.getElementById('login-submit');
-      errorEl.textContent = '';
-
-      // Fix 4: disable button while request is in flight
-      submitBtn.disabled     = true;
-      submitBtn.textContent  = 'Please wait...';
-
-      const email    = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-
-      try {
-        const res  = await fetch('/api/auth/login', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-
-        if (!res.ok) {
-          errorEl.textContent   = data.error || 'Login failed.';
-          submitBtn.disabled    = false;
-          submitBtn.textContent = 'Log in';
-          return;
-        }
-
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('name',  data.name);
-        localStorage.setItem('role',  data.role);
-        window.location.href = '/dashboard.html';
-
-      } catch (err) {
-        errorEl.textContent   = 'Could not connect to server.';
-        submitBtn.disabled    = false;
-        submitBtn.textContent = 'Log in';
-      }
-    });
-
-    // ── REGISTER ───────────────────────────────────────────────────────────────
-    document.getElementById('register-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const errorEl  = document.getElementById('register-error');
-      const submitBtn = document.getElementById('register-submit');
-      errorEl.textContent = '';
-
-      // Fix 4: disable button while request is in flight
-      submitBtn.disabled    = true;
-      submitBtn.textContent = 'Please wait...';
-
-      const name     = document.getElementById('reg-name').value.trim();
-      const email    = document.getElementById('reg-email').value.trim();
-      const password = document.getElementById('reg-password').value;
-
-      try {
-        const res  = await fetch('/api/auth/register', {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify({ name, email, password })
-        });
-        const data = await res.json();
-
-        if (!res.ok) {
-          const msg             = data.errors ? data.errors[0].msg : data.error;
-          errorEl.textContent   = msg || 'Registration failed.';
-          submitBtn.disabled    = false;
-          submitBtn.textContent = 'Create account';
-          return;
-        }
-
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('name',  data.name);
-        localStorage.setItem('role',  data.role);
-        window.location.href = '/dashboard.html';
-
-      } catch (err) {
-        errorEl.textContent   = 'Could not connect to server.';
-        submitBtn.disabled    = false;
-        submitBtn.textContent = 'Create account';
-      }
-    });
-  </script>
+  <script src="login.js"></script>
 </body>
+
 </html>
